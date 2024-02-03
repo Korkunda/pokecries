@@ -1,22 +1,22 @@
-import React, {useState, useEffect, useContext} from "react"
+import React, {useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import Options from "./Options.js"
 
 
 
-export default function GuessTheCry({numOptions, numLives, gameMode}){
+export default function GuessTheCry({numOptions, numLives, gameMode, leaderboard}){
     
-    //navigation
+    //NAVIGATION
     const navigate = useNavigate()
 
-    //set game
+    //SET GAME
     let [game, setGame] = useState({
         status: null, lives: null, guesses: 0, options: {currentOptions: [], correctAnswer: {pokemon: null, audio: null}}
     })
 
     let audioBtn = require(`../../icons/audioBtn.png`)
 
-    //generate pokedex
+    //-----------------GET ALL POKEMON------------------//
     const [allPokemon, setAllPokemon] = useState([])
 
     useEffect(()=> {
@@ -31,14 +31,15 @@ export default function GuessTheCry({numOptions, numLives, gameMode}){
         // return ()=> controller.abort()
     },[])
 
+    //----------------GENERATE GAME-------------------//
     function generateOptions(totalOptions){
         let pokemonArray = allPokemon.map(mon => mon) 
         let optionsArray = []
 
-
         let randomOption = Math.floor(Math.random() * pokemonArray.length) 
         let foundOption = pokemonArray[randomOption]
         
+        //generate all options
         while(optionsArray.length<totalOptions){
             let randomOption = Math.floor(Math.random() * pokemonArray.length) 
             let foundOption = pokemonArray[randomOption]
@@ -51,6 +52,7 @@ export default function GuessTheCry({numOptions, numLives, gameMode}){
         let answerNumber = Math.floor(Math.random()* totalOptions)
         let correctAnswer = optionsArray[answerNumber]
         console.log(correctAnswer)
+
         let audio = new Audio(require(`../../pokecries/${correctAnswer.id}.ogg`))
             audio.volume = 0.1
 
@@ -64,14 +66,16 @@ export default function GuessTheCry({numOptions, numLives, gameMode}){
         }}))
     }
 
-    useEffect(() => {
-        if (game.status === "lost") {
-            navigate("/GameOver", { state: { score: game.guesses, gameMode: gameMode } });
-        }
-        console.log("guesses: " + game.guesses)
-    }, [game]);
-    
-    
+    function renderOptions(totalOptions){
+        return <div className="divOptions"> {totalOptions.map(option => <Options /*key={option.id}*/ checkAnswer={checkAnswer} option={option}/>)}</div>
+    }
+
+    function startGame(){
+        setGame(prevGame => ({...prevGame, guesses: 0, status: "ongoing", lives: numLives}))
+        generateOptions(numOptions)
+    }
+
+    //---------------GAMEPLAY-------------------//
     function checkAnswer(option){
         if(option === game.options.correctAnswer.pokemon){
             console.log("Correct") 
@@ -86,21 +90,15 @@ export default function GuessTheCry({numOptions, numLives, gameMode}){
         }
     }
 
-    function recordScore(json, username, score) {
-        json[username] = {
-            "Username": username,
-            "Score": score
-        };
-    }
 
-    function renderOptions(totalOptions){
-        return <div className="divOptions"> {totalOptions.map(option => <Options /*key={option.id}*/ checkAnswer={checkAnswer} option={option}/>)}</div>
-    }
 
-    function startGame(){
-        setGame(prevGame => ({...prevGame, guesses: 0, status: "ongoing", lives: numLives}))
-        generateOptions(numOptions)
-    }
+    //GAME OVER
+    useEffect(() => {
+        if (game.status === "lost") {
+            navigate("/GameOver", { state: { score: game.guesses, gameMode: gameMode, leaderboard: leaderboard } });
+        }
+        console.log("guesses: " + game.guesses)
+    }, [game]);
 
     return(
         <>
@@ -120,14 +118,17 @@ export default function GuessTheCry({numOptions, numLives, gameMode}){
 
             </div>
 
-            
-            <div className="page-bottom">
+            <div className="mid">
                 {game.status === null ? <button className="button-default" onClick={()=> startGame()}>START</button> : renderOptions(game.options.currentOptions)}
-
+                
                 <div className="row" >
                     <Link to="/ChooseDifficulty"><button className="button-default">Back</button></Link>
 
                 </div>
+            </div>
+
+            <div className="page-bottom">
+               
                 
             </div>
 

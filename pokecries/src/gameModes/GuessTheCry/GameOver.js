@@ -6,35 +6,50 @@ import Options from "./Options.js"
 
 
 export default function GameOver(){
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const location = useLocation();
-    const { score, gameMode } = location.state || {};
 
+    const { score, gameMode, leaderboard } = location.state || {};
     const [username, setUsername] = useState("");
 
-    function recordScore(username, score) {
-        const existingLeaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+    function recordScore(username, score, leaderboard) {
+        const existingLeaderboard = JSON.parse(localStorage.getItem(leaderboard)) || [];
         
         const newEntry = { Username: username, Score: score };
         const updatedLeaderboard = [...existingLeaderboard, newEntry];
         
-        localStorage.setItem('leaderboard', JSON.stringify(updatedLeaderboard));
+        localStorage.setItem(leaderboard, JSON.stringify(updatedLeaderboard));
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        recordScore(username, score); 
-        navigate("/Leaderboard");
+        recordScore(username, score, leaderboard); 
+
+        let leaderboardToNavigateTo = ""
+
+        switch(leaderboard){
+            case "leaderboard_easy":
+                leaderboardToNavigateTo = "LeaderboardEasy"
+                break;
+            case "leaderboard_hard":
+                leaderboardToNavigateTo = "LeaderboardHard"
+                break;
+            case "leaderboard_insane":
+                leaderboardToNavigateTo = "LeaderboardInsane"
+                break;
+            default:
+                console.log(`No Leaderboard found named: ${leaderboard}`)
+        }
+        navigate(`/${leaderboardToNavigateTo}`);
     }
 
     function handleTryAgain() {
         const state = {
-            easy: { numOptions: 4, numLives: 3 },
-            hard: { numOptions: 16, numLives: 1 },
-            insane: { numOptions: 32, numLives: 0 }
+            easy: navigate("/EasyMode"),
+            hard: navigate("/HardMode"),
+            insane: navigate("/InsaneMode")
         }[gameMode] || {};
-
-        navigate("/GuessTheCry", { state });
+        
     }
     
     return(
@@ -44,8 +59,7 @@ export default function GameOver(){
                 <h1>You had a total of {score} guesses</h1>
 
             </div>
-
-            
+         
             <div className="page-bottom">
                 <div className="column">
                     <form onSubmit={handleSubmit}>

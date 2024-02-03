@@ -17,7 +17,7 @@ export default function PageComponent(){
 
             <div className="page-bottom">
                 <Link to="/ChooseDifficulty"><button className="button-default">Play</button></Link>
-                <Link to="/Leaderboard"><button className="button-default">Leaderboard</button></Link>
+                <Link to="/LeaderboardOptions"><button className="button-default">Leaderboards</button></Link>
             </div>
             
         </>

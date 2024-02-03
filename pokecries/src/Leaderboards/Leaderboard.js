@@ -2,24 +2,24 @@ import React, {useState, useEffect} from "react"
 import { Link } from "react-router-dom";
 
 
-export default function Leaderboard(){
+export default function Leaderboard({title, leaderboard}){
     const [leaderboardData, setLeaderboardData] = useState([]);
    
     useEffect(() => {
-        const storedLeaderboard = localStorage.getItem('leaderboard');
+        const storedLeaderboard = localStorage.getItem(`${leaderboard}`);
         const data = storedLeaderboard ? JSON.parse(storedLeaderboard) : []
 
         const sortedData = Array.isArray(data)
             ? data.sort((a, b) => b.Score - a.Score).slice(0, 100)
             : [];
 
-            setLeaderboardData(sortedData);
+        setLeaderboardData(sortedData);
     }, []);
 
     return(
         <>
             <div className="page-top">
-                <h1 className="title" id="title-main">Leaderboard</h1>
+                <h1 className="title" id="title-main">{title}</h1>
 
             </div>
 
