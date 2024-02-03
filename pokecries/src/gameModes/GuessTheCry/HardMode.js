@@ -7,6 +7,7 @@ export default function HardMode(){
             numOptions={16}
             numLives={1}
             gameMode="hard"
+            leaderboard={"leaderboard_hard"}
         />
     )
 }

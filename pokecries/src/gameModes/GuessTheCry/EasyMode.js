@@ -7,6 +7,7 @@ export default function EasyMode(){
             numOptions={4}
             numLives={3}
             gameMode="easy"
+            leaderboard={"leaderboard_easy"}
         />
     )
 }

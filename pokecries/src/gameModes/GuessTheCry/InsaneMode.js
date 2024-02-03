@@ -7,6 +7,7 @@ export default function EasyMode(){
             numOptions={32}
             numLives={0}
             gameMode="insane"
+            leaderboard={"leaderboard_insane"}
         />
     )
 }

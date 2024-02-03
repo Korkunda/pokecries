@@ -6,11 +6,13 @@ import Layout from "./Layout";
 import EasyMode from "./gameModes/GuessTheCry/EasyMode.js";
 import HardMode from "./gameModes/GuessTheCry/HardMode.js";
 import InsaneMode from "./gameModes/GuessTheCry/InsaneMode.js";
-import Leaderboard from "./Leaderboard.js";
+import LeaderboardOptions from "./LeaderboardOptions.js";
+import LeaderboardEasy from "./Leaderboards/LeaderboardEasy.js";
+import LeaderboardHard from "./Leaderboards/LeaderboardHard.js";
+import LeaderboardInsane from "./Leaderboards/LeaderboardInsane.js";
 import GameOver from "./gameModes/GuessTheCry/GameOver.js";
 
 export default function App(){
-
 
 
   return(
@@ -25,7 +27,11 @@ export default function App(){
             <Route path="/InsaneMode" element={<InsaneMode />}/>
             <Route path="/GameOver" element={<GameOver />}/>
 
-            <Route path="/Leaderboard" element={<Leaderboard />}/>
+
+          <Route path="/LeaderboardOptions" element={<LeaderboardOptions />}/>
+            <Route path="/LeaderboardEasy" element={<LeaderboardEasy />}/>
+            <Route path="/LeaderboardHard" element={<LeaderboardHard />}/>
+            <Route path="/LeaderboardInsane" element={<LeaderboardInsane />}/>
           </Route>
 
       
