@@ -1,0 +1,194 @@
+@import './variables.css';
+
+body {
+  margin: 0;
+  background-color: rgb(49, 49, 49);
+}
+
+button {
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover{
+  background-color: white;
+  color: rgb(49, 49, 49);
+}
+
+button:active{
+  scale: 0.98;
+}
+
+ul{
+  color: white;
+  font-weight: solid;
+}
+
+table thead tr {
+  background-color: white;
+  border: solid;
+  border-width: 2px;
+  border-color: white;
+  color: black;
+}
+
+th {
+  width: 256px;
+}
+
+td {
+  background-color: inherit;
+  color: white;
+  
+  text-align: center;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+}
+
+.column{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leaderboard { 
+  font-weight: bold;
+  font-size: large;
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboard table thead tr th:first-child{
+  width: 64px;
+}
+
+/* TOP */
+.page-top{
+  display: flex;
+  height: 250px;
+  justify-content: center;
+}
+
+.gameOver{
+  color: red;
+}
+
+.audioPlayer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  left: 10px;
+  width: 200px;
+  height: 150px;
+  
+}
+
+#audio-btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color:black;
+  width: 75px;
+  height: 50px;
+}
+
+.audio-icon{
+  width: 50px;
+  height: 50px;
+}
+
+
+.title{
+  display: flex;
+  flex-direction: column;
+  color: white;
+  text-align: center;
+  align-items: center;
+  margin: 0px;
+}
+
+#title-main{
+  margin-top: 100px;
+  margin: 0px;
+
+}
+
+#subtitle{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.top-options{
+  top: 0;
+}
+
+.title-round{
+  color: greenyellow;
+  margin: 0px;
+  left: 10px;
+}
+
+/*MIDDLE*/
+.mid{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* BOTTOM */
+.page-bottom{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: var(--bottom);
+}
+
+.divOptions{
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+}
+
+.button-default{
+  color: rgb(255, 255, 255);
+  background-color: rgb(49, 49, 49);
+  border-style: solid;
+  border-width: 2px;
+  border-color: white;
+  
+  margin: 10px;
+  width: 200px;
+  height: 50px;
+  font-weight: bold;
+  font-size: large;
+
+}
+
+.thin{
+  margin: 5px;
+  width: 50px;
+  height: 20px;
+  font-size: small;
+}
+
+#back-btn{
+  justify-self: flex-start;
+}
+
+.choice-btn{
+  border: none;
+  width: 150px;
+  height: 100px;
+
+  margin: 10px;
+  
+}
