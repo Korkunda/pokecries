@@ -96,7 +96,7 @@ export default function Pokedex(){
         setGen6(gen6)
         //gen7
         let gen7 = []
-        for(let i = 722; i<802 + 1; i++){
+        for(let i = 722; i<809 + 1; i++){
             let pokemon = pokemonArray[i - 1]
             let cry = require.context('../pokecries', true, /\.ogg$/);
             let audioFile = cry(`./${pokemon.id}.ogg`);
@@ -105,7 +105,7 @@ export default function Pokedex(){
         setGen7(gen7)
         //gen8
         let gen8 = []
-        for(let i = 803; i<905 + 1; i++){
+        for(let i = 810; i<905 + 1; i++){
             let pokemon = pokemonArray[i - 1]
             let cry = require.context('../pokecries', true, /\.ogg$/);
             let audioFile = cry(`./${pokemon.id}.ogg`);
