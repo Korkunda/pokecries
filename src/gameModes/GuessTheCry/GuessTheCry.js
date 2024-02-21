@@ -4,7 +4,7 @@ import Options from "./Options.js"
 
 
 
-export default function GuessTheCry({numOptions, numLives, gameMode, leaderboard}){
+export default function GuessTheCry({numPokemon, numOptions, numLives, gameMode, leaderboard}){
     
     //NAVIGATION
     const navigate = useNavigate()
@@ -20,15 +20,13 @@ export default function GuessTheCry({numOptions, numLives, gameMode, leaderboard
     const [allPokemon, setAllPokemon] = useState([])
 
     useEffect(()=> {
-        // const controller = new AbortController()
-        async function getAllPokemon(dexLimit){
-            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${dexLimit}`)/*, {signal: controller.signal})*/
+        async function getAllPokemon(numPokemon){
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${numPokemon}`)/*, {signal: controller.signal})*/
             const pokemonData = await res.json()
             setAllPokemon(
                 pokemonData.results.map((pokemon, index) => ({id: index + 1, name: pokemon.name}))
             )  
-        } getAllPokemon(721)
-        // return ()=> controller.abort()
+        } getAllPokemon(numPokemon)
     },[])
     
     //----------------GENERATE GAME-------------------//
