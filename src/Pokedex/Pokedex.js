@@ -13,9 +13,10 @@ export default function Pokedex(){
     const [gen6, setGen6] = useState([])
     const [gen7, setGen7] = useState([])
     const [gen8, setGen8] = useState([])
+    const [gen9, setGen9] = useState([])
     const [selectedGen, setSelectedGen] = useState([])
-
     const [allPokemon, setAllPokemon] = useState([])
+    
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(()=> {
@@ -34,7 +35,7 @@ export default function Pokedex(){
             finally {
                 setIsLoading(false); 
             }
-        } getAllPokemon(905)
+        } getAllPokemon(1025)
     },[])
 
  
@@ -112,17 +113,25 @@ export default function Pokedex(){
             gen8.push({pokemon: pokemon, audio: audioFile});
         }
         setGen8(gen8)
+        //gen9
+        let gen9 = []
+        for(let i = 906; i<1025 + 1; i++){
+            let pokemon = pokemonArray[i - 1]
+            let cry = require.context('../pokecries', true, /\.ogg$/);
+            let audioFile = cry(`./${pokemon.id}.ogg`);
+            gen9.push({pokemon: pokemon, audio: audioFile});
+        }
+        setGen9(gen9)
     }
 
-    function playSound(id, file){
-        let audioPath = `/pokecries/${id}.ogg`
+    function playSound(file){
         let audio = new Audio(file)
         audio.volume = 0.1
         audio.play()
     }
 
     function renderPokedex(generation){
-        return <div className="divOptions">{generation.map(option => <PokemonSquare key={option.pokemon.id} id={option.pokemon.id} playSound={() => playSound(option.pokemon.id, option.audio)} />)}</div>
+        return <div className="divOptions">{generation.map(option => <PokemonSquare key={option.pokemon.id} id={option.pokemon.id} playSound={() => playSound(option.audio)} />)}</div>
     }
 
     useEffect(() => {
@@ -151,6 +160,7 @@ export default function Pokedex(){
                         <button className="button-default thin" onClick={()=>{setSelectedGen(gen6)}}>Gen6</button>
                         <button className="button-default thin" onClick={()=>{setSelectedGen(gen7)}}>Gen7</button>
                         <button className="button-default thin" onClick={()=>{setSelectedGen(gen8)}}>Gen8</button>
+                        <button className="button-default thin" onClick={()=>{setSelectedGen(gen9)}}>Gen9</button>
                     </div>
                 </div>
             </div>

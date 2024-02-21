@@ -16,6 +16,7 @@ export default function LeaderboardOptions(){
                 <Link to="/LeaderboardEasy"><button className="button-default">Classic: Easy</button></Link>
                 <Link to="/LeaderboardHard"><button className="button-default">Classic: Hard</button></Link>
                 <Link to="/LeaderboardInsane"><button className="button-default">Classic: Insane</button></Link>
+                <Link to="/LeaderboardAllInsane"><button className="button-default">Insane</button></Link>
             </div>
 
             <div className="page-bottom">
